@@ -1,0 +1,17 @@
+﻿#!/bin/bash
+# Nota: en PicarOS descomenta la línea gobohide -f
+# Ejecutar como: sudo fijausuario USUARIO
+
+[[ $(id -u) -ne 0 ]] && {
+       echo "Tienes que ejecutar este script con sudo"
+       exit 1
+}
+
+if [ "$1" == "" ];then
+    echo "Tienes que añadir qué usuario se quiere congelar"
+    echo "Ej. fijausuario minino"
+    exit 0
+fi
+
+#gobohide -f
+rsync -va --delete /home/$1/ /srv/$1
